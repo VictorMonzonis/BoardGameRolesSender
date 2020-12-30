@@ -1,0 +1,15 @@
+{
+  "name": "sendrolesbyemail",
+  "version": "1.0.0",
+  "description": "",
+  "main": "sendroles.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Victor Monzonis Curos",
+  "license": "MIT",
+  "dependencies": {
+    "nodemailer": "^6.4.17",
+    "yargs": "^16.2.0"
+  }
+}
