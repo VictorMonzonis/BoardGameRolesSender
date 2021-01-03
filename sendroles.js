@@ -1,5 +1,6 @@
 const fs = require('fs');
 const nodemailer = require('nodemailer');
+const { exit } = require('process');
 const yargs = require('yargs');
 
 function argsSetup(){
@@ -41,7 +42,7 @@ function readJson(path) {
   return obj;
 }
 
-module.exports.checkInputs = function() {
+var checkInputs = function() {
   let gameSetUp = readJson(argv.game);
   let emails = readJson(argv.emails);
 
@@ -61,7 +62,7 @@ module.exports.checkInputs = function() {
 }
 
 // Assigned roles to persons(e-mails)
-module.exports.shuffleArray = function(array) {
+var shuffleArray = function(array) {
   var [...arrayclone] = [...array];
 
   for (i = 0; i < arrayclone.length / 2 ; i++) {
@@ -71,7 +72,7 @@ module.exports.shuffleArray = function(array) {
   return arrayclone;
 }
 
-module.exports.assignCharacters = function(gameSetUp, shuffledEmails){
+var assignCharacters = function(gameSetUp, shuffledEmails){
   let characters = [];
   shuffledEmailsIndex = 0;
   for (i = 0; i < gameSetUp.length ; i++) {
@@ -96,7 +97,7 @@ module.exports.assignCharacters = function(gameSetUp, shuffledEmails){
 }
 
 // Generated additional info a certain character can have
-module.exports.enrichCharacters = function(characters){
+var enrichCharacters = function(characters){
   console.log("_Adding extra information to special characters if needed");
   for (i = 0; i < characters.length ; i++) {
     let character = characters[i];
@@ -116,8 +117,15 @@ module.exports.enrichCharacters = function(characters){
   return characters;
 }
 
+module.exports = {
+  checkInputs,
+  shuffleArray,
+  assignCharacters,
+  enrichCharacters
+}
+
 // Create reports to emails
-module.exports.generateReports = function(characters, transporter){
+var generateReports = function(characters, transporter){
   console.log("_Create Reorts:");
   for (i in characters) {
     let character = characters[i];
@@ -146,11 +154,14 @@ module.exports.generateReports = function(characters, transporter){
 
 
 // Main
+if(process.argv.slice(2).length == 0 || process.argv.slice(2)[0].includes('Tests/'))
+  return; // prevents execution when the script is loaded by the test.
+
 const argv = argsSetup();
-var [gameSetUp, emails] = exports.checkInputs();
-var shuffledEmails = exports.shuffleArray(emails);
-var characters = exports.assignCharacters(gameSetUp, shuffledEmails);
-characters = exports.enrichCharacters(characters);
+var [gameSetUp, emails] = checkInputs();
+var shuffledEmails = shuffleArray(emails);
+var characters = assignCharacters(gameSetUp, shuffledEmails);
+characters = enrichCharacters(characters);
 
 var transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -160,4 +171,4 @@ var transporter = nodemailer.createTransport({
   }
 });
 
-exports.generateReports(characters, transporter);
+generateReports(characters, transporter);

@@ -4,7 +4,7 @@
   "description": "",
   "main": "sendroles.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha ./Tests/test.js --reporter spec"
+    "test": "node ./node_modules/mocha/bin/mocha ./Tests/Test.js"
   },
   "author": "Victor Monzonis Curos",
   "license": "MIT",
@@ -13,6 +13,7 @@
     "yargs": "^16.2.0"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
     "mocha": "^8.2.1"
   }
 }
