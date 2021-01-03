@@ -1,5 +1,3 @@
-console.log(__dirname);
-
 var assert = require('chai').assert;
 var sut = require('../sendroles.js');
 
