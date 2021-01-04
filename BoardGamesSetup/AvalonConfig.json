@@ -2,16 +2,23 @@
     {
         "Name":"GoodGuy[x]",
         "Role":"GoodGuy",
-        "Number":"4"
-    },
-    {
-        "Name":"BadGuy[x]",
-        "Role":"BadGuy",
-        "Number":"2"
+        "Number":"3"
     },
     {
         "Name":"Merlin",
         "Role":"GoodGuy",
+        "Number":"1",
+        "KnowRoles":["BadGuy"]
+    },
+    {
+        "Name":"BadGuy[x]",
+        "Role":"BadGuy",
+        "Number":"2",
+        "KnowRoles":["BadGuy"]
+    },
+    {
+        "Name":"Assassin",
+        "Role":"BadGuy",
         "Number":"1",
         "KnowRoles":["BadGuy"]
     }
