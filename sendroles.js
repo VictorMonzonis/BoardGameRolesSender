@@ -46,7 +46,7 @@ var checkInputs = function() {
   let gameSetUp = readJson(argv.game);
   let emails = readJson(argv.emails);
 
-  let wellFormatted = gameSetUp.every(e => e.Number) && gameSetUp.every(e => e.Role) && gameSetUp.every(e => e.Name)
+  let wellFormatted = gameSetUp.every(e => e.Number) && gameSetUp.every(e => e.Roles) && gameSetUp.every(e => e.Name)
   if(!wellFormatted) {
     console.error('Name, Role and Number must be defined');
     process.exit(0);
@@ -61,7 +61,7 @@ var checkInputs = function() {
   return [gameSetUp, emails];
 }
 
-// Assigned roles to persons(e-mails)
+// Assigned characters to players(e-mails)
 var shuffleArray = function(array) {
   var [...arrayclone] = [...array];
 
@@ -82,10 +82,10 @@ var assignCharacters = function(gameSetUp, shuffledEmails){
       characters.push(
         {
           "Name": charConfig.Name.replace("[x]", j),
-          "Role": charConfig.Role,
+          "Roles": charConfig.Roles,
           "KnowRoles": charConfig.KnowRoles || [],
           "SendTo":shuffledEmails[shuffledEmailsIndex].mail,
-          "PersonsName":shuffledEmails[shuffledEmailsIndex].aka,
+          "PlayerAka":shuffledEmails[shuffledEmailsIndex].aka,
           "EnrichedInfo":""
         }
       )
@@ -105,11 +105,12 @@ var enrichCharacters = function(characters){
       console.log(`\t Char with Name ${character.Name} knows` );
 
     character.KnowRoles.forEach( lookForRole => {
-      let people = characters.filter(e => e.Role == lookForRole) ;
+      // check if a specific role is in the roles lists of a character
+      let people = characters.filter(e => e.Roles.includes(lookForRole)); 
 
       people.forEach( person => {
-        console.log(`\t\t about who is ${person.Name}` );
-        character.EnrichedInfo += ` PersonsName: ${person.PersonsName}, Role:${person.Role} -- \n`;
+        console.log(`\t\t About who is the rol of ${person.Name}` );
+        character.EnrichedInfo += ` PlayerAka: '${person.PlayerAka}', With Role: '${lookForRole}' -- \n`;
       });
     });
   }
@@ -126,11 +127,12 @@ module.exports = {
 
 // Create reports to emails
 var generateReports = function(characters, transporter){
-  console.log("_Create Reorts:");
+  let gameId = Math.floor((Math.random() * 1000) + 1);
+  console.log(`_Create Reorts of gameId ${gameId}:`);
   for (i in characters) {
     let character = characters[i];
   
-    let bodyText = ` ** Your Char Name: ${character.Name}, Role ${character.Role}, Aka: ${character.PersonsName} ** \n\n`;
+    let bodyText = ` ** GameId ${gameId} ** Your Char Name: '${character.Name}', Roles: '${character.Roles.toString()}', Aka: '${character.PlayerAka}' ** \n\n`;
     bodyText += character.EnrichedInfo
   
     let mailOptions = {

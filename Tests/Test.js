@@ -24,17 +24,17 @@ describe('SendRoles', function() {
       let gameSetup = [
         {
             "Name":"GoodGuy[x]",
-            "Role":"GoodGuy",
+            "Roles":["GoodGuy"],
             "Number":"4"
         },
         {
             "Name":"BadGuy[x]",
-            "Role":"BadGuy",
+            "Roles":["BadGuy"],
             "Number":"2"
         },
         {
             "Name":"Merlin",
-            "Role":"GoodGuy",
+            "Roles":["GoodGuy"],
             "Number":"1",
             "KnowRoles":["BadGuy"]
         }
