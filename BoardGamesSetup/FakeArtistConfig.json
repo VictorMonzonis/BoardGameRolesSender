@@ -1,0 +1,13 @@
+[
+    {
+        "Name":"Artist",
+        "Roles":["[base64]bWVyY2Fkb25h"],
+        "Number":"4"
+    },
+    {
+        "Name":"FakeArtitst",
+        "Roles":["FakeArtist"],
+        "Number":"1"
+    }
+]
+
