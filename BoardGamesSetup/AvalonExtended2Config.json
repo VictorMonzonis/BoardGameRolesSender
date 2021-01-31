@@ -1,0 +1,37 @@
+[
+    {
+        "Name":"GoodGuy[x]",
+        "Roles":["GoodGuy"],
+        "Number":"3"
+    },
+    {
+        "Name":"Merlin",
+        "Roles":["GoodGuy", "Merlin"],
+        "Number":"1",
+        "KnowRoles":["BadGuy"]
+    },
+    {
+        "Name":"Percival",
+        "Roles":["GoodGuy"],
+        "Number":"1",
+        "KnowRoles":["Merlin"]
+    },
+    {
+        "Name":"BadGuy[x]",
+        "Roles":["BadGuy"],
+        "Number":"2",
+        "KnowRoles":["BadGuy", "Bad​Guy​"]
+    },
+    {
+        "Name":"Assassin",
+        "Roles":["BadGuy"],
+        "Number":"1",
+        "KnowRoles":["BadGuy", "Bad​Guy​"]
+    }, 
+    {
+        "Name":"Mordred",
+        "Roles":["Bad​Guy​"],
+        "Number":"1",
+        "KnowRoles":["BadGuy"]
+    }
+]
