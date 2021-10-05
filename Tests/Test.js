@@ -10,7 +10,7 @@ describe('SendRoles', function() {
       const reversed = [...initialArray].reverse(); // change after the shuffle is the reverse its almost 0 == 1 / Fact(9)
 
       let found = false;
-      for(i = 0; i < reversed.length ;i++)
+      for(i = 0;  !found && i < reversed.length ;i++)
       {
         if(reversed[i] + result[i] != initialArray[0] + initialArray[initialArray.length -1])
           found = true; // Because Gauss formula Sum of N first integers
